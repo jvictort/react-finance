@@ -2,7 +2,7 @@ import React from 'react';
 
 import * as C from './style';
 
- const ResumeItem = ({ title, Icon }) => {
+ const ResumeItem = ({ title, Icon, value }) => {
    return (
      <C.Container>
         <C.Header>
@@ -10,7 +10,7 @@ import * as C from './style';
             <Icon />
         </C.Header>
 
-        <C.Total>1000</C.Total>
+        <C.Total>{value}</C.Total>
      </C.Container>
    )
  }
