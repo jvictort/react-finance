@@ -2,10 +2,35 @@ import React, { useState } from 'react';
 
 import * as C from './style';
 
-const Form = () => {
+const Form = ({ handleAdd }) => {
   const [desc, setDesc] = useState('');
   const [amount, setAmount] = useState('');
   const [isExpense, setExpense] = useState(false);
+
+  const generateID = () => Math.round(Math.random() * 1000);
+
+  const handleSave = () => {
+    if(!desc || !amount) {
+      alert('Informe a descrição e o valor');
+      return;
+    } else if(amount < 1) {
+      alert('O valor tem que ser positivo');
+      return;
+    }
+
+    const transaction = {
+      id: generateID(),
+      desc: desc,
+      amount: amount,
+      isExpense: isExpense
+    }
+
+    handleAdd(transaction);
+
+    setDesc('');
+    setAmount('');
+
+  }
 
   return (
     <>
@@ -21,7 +46,7 @@ const Form = () => {
         <C.InputContent>
           <C.Label>Valor</C.Label>
           <C.Input
-              value={desc}
+              value={amount}
               type="number"
               onChange={event => setAmount(event.target.value)}
           />
@@ -42,7 +67,6 @@ const Form = () => {
             <C.Input
               type="radio"
               id="rExpenses"
-              defaultChecked
               name="group1"
               onChange={event => setExpense(!isExpense)}
             />
@@ -51,7 +75,7 @@ const Form = () => {
           </C.RadioGroup>
         </C.InputContent>
 
-        <C.Button>Adicionar</C.Button>
+        <C.Button onClick={handleSave}>Adicionar</C.Button>
       </C.Container>
     </>
   );
