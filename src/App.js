@@ -26,13 +26,15 @@ function App() {
       .filter(item => item.isExpense)
       .map(transaction => Number(transaction.amount));
 
-    const income = amountIncome.reduce((acc, cur) => acc + cur, 0).toFixed(2);
-    const expense = amountExpense.reduce((acc, cur) => acc + cur, 0).toFixed(2);
+    const income = amountIncome.reduce((acc, cur) => acc + cur, 0);
+    const expense = amountExpense.reduce((acc, cur) => acc + cur, 0);
 
     const total = Math.abs(income - expense).toFixed(2);
 
-    setIncome(`R$ ${income}`);
-    setExpense(`R$ ${expense}`);
+    console.log(income, expense)
+
+    setIncome(`R$ ${income.toFixed(2)}`);
+    setExpense(`R$ ${expense.toFixed(2)}`);
     setTotal(`${income < expense ? '-' : ''}R$  ${total}`);
 
   }, [transactionsList])
